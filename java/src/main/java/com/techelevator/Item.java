@@ -11,8 +11,32 @@ public abstract class Item implements Buyable {
     private Item[] slotInventory = new Item[5];
 
     //getters and setters(?)
+    public String getName() {
+        return name;
+    }
+
+    public String getSlotId() {
+        return slotId;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public Item[] getSlotInventory() {
+        return slotInventory;
+    }
+
+    public void setSlotInventory(Item[] slotInventory) {
+        this.slotInventory = slotInventory;
+    }
 
     //constructor
+    public Item(String slotId, String name, int price) {
+        this.slotId = slotId;
+        this.name = name;
+        this.price = price;
+    }
 
     //METHODS
     public String dispense(){
@@ -25,9 +49,8 @@ public abstract class Item implements Buyable {
         return result;
     }
 
-    //toString()
-
-
-
-
+    @Override
+    public String toString() {
+        return this.slotId + " | " + this.name + " | " + this.price;
+    }
 }
