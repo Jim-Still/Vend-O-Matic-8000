@@ -8,7 +8,8 @@ public abstract class Item implements Buyable {
     private String name;
     private String slotId;
     private int price;
-    private Item[] slotInventory = new Item[5];
+    private int quantity = 5;
+
 
     //getters and setters(?)
     public String getName() {
@@ -23,13 +24,6 @@ public abstract class Item implements Buyable {
         return price;
     }
 
-    public Item[] getSlotInventory() {
-        return slotInventory;
-    }
-
-    public void setSlotInventory(Item[] slotInventory) {
-        this.slotInventory = slotInventory;
-    }
 
     //constructor
     public Item(String slotId, String name, int price) {
@@ -42,9 +36,9 @@ public abstract class Item implements Buyable {
     public String dispense(){
         String result = "";
 
-        // have it remove item from inventory
+        // have it remove and adjust quantity
         //display item specific text
-        // sold out error
+        // sold out error when quantity = 0;
 
         return result;
     }

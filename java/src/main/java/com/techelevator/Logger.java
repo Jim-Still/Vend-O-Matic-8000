@@ -15,9 +15,7 @@ public class Logger {
 
     //Constructor
 
-    public Logger(File auditFile, boolean append) throws FileNotFoundException {
-        this.auditFile = auditFile;
-        this.appendMode = append;
+    public Logger() throws FileNotFoundException {
         this.auditWriter = new PrintWriter(new FileOutputStream(auditFile, appendMode));
 
     }
