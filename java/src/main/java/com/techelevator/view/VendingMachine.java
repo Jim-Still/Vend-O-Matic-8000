@@ -35,7 +35,7 @@ public class VendingMachine {
 
         File inventoryFile = new File("vendingmachine.csv");
         fileScanner = new Scanner(inventoryFile);
-        
+
         while(fileScanner.hasNextLine()){
             String inventoryLine = fileScanner.nextLine();
             String[] inventoryItem = inventoryLine.split("\\|");   //this may have issues
