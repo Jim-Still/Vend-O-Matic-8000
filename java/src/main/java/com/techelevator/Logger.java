@@ -17,8 +17,8 @@ public class Logger {
 
     public Logger() throws FileNotFoundException {
         this.auditWriter = new PrintWriter(new FileOutputStream(auditFile, appendMode));
-
     }
+
 
     public void log(String event){
         auditWriter.println(event);

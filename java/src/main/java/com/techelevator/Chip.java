@@ -2,7 +2,7 @@ package com.techelevator;
 
 public class Chip extends Item{
 
-    public Chip(String slotId, String name, int price){
+    public Chip(String slotId, String name, String price){
         super(slotId, name, price);
     }
 

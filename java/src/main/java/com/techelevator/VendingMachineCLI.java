@@ -41,14 +41,24 @@ public class VendingMachineCLI {
 
 	public void run() {
 
-		//declare a new vending machine (ONLY ONE)
+		VendingMachine machine = new VendingMachine();
+
+		machine.stock();
+
 		String[] activeMenu = MAIN_MENU_OPTIONS;
 
 		while (true) {
 			String choice = (String) menu.getChoiceFromOptions(activeMenu);
 
+//			String selection = (String) menu.getChoiceFromUserInput();
+
 			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
-				// display vending machine items
+
+//				test.toStringDisplayItems();
+				machine.displayMenu();
+
+
+
 			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
 
 				// do purchase
@@ -56,7 +66,16 @@ public class VendingMachineCLI {
 				activeMenu = PURCHASE_MENU_OPTIONS;
 				//feedMoney() - is this its own loop?
 
-				// selectProduct() - interact with dispense() (?) / reference same display and inventory
+				if (choice.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)) {
+
+					machine.displayMenu();
+					System.out.println();
+					System.out.print("What would you like to purchase? : ");
+				}
+
+				//We need to get a selection from the user
+
+				//Reference selectProduct() in VendingMachine
 				// count of top menu / main menu display
 
 				//current money provided method called from bank

@@ -7,7 +7,7 @@ public abstract class Item implements Buyable {
     //private member variables
     private String name;
     private String slotId;
-    private int price;
+    private String price;
     private int quantity = 5;
 
 
@@ -20,13 +20,13 @@ public abstract class Item implements Buyable {
         return slotId;
     }
 
-    public int getPrice() {
+    public String getPrice() {
         return price;
     }
 
 
     //constructor
-    public Item(String slotId, String name, int price) {
+    public Item(String slotId, String name, String price) {
         this.slotId = slotId;
         this.name = name;
         this.price = price;

@@ -2,7 +2,7 @@ package com.techelevator;
 
 public class Beverage extends Item {
 
-    public Beverage(String slotId, String name, int price){
+    public Beverage(String slotId, String name, String price){
         super(slotId, name, price);
     }
 
