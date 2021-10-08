@@ -47,9 +47,11 @@ public class VendingMachineCLI {
 
 		VendingMachine machine = new VendingMachine();
 
-		machine.stock();
+		machine.currentInventory.stock();
 
 		String[] activeMenu = MAIN_MENU_OPTIONS;
+
+//		Item[] selectionChoice = (Item[]) machine.currentInventory.getInventory().values().toArray();
 
 		while (true) {
 			//start with main menu (see line 48)
@@ -65,10 +67,16 @@ public class VendingMachineCLI {
 			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
 				activeMenu = PURCHASE_MENU_OPTIONS;
 			} else if (choice.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)) {
+
+
 				machine.displayMenu();
+				System.out.println("Current Money Provided: $" + BigDecimal.valueOf((double) machine.currentBank.getCurrentBalance()));
 				System.out.println();
 				System.out.print(PURCHASE_MENU_OPTION_SELECT_PRODUCT + ": ");
-				System.out.println();
+
+				//String selection = (String) menu.getChoiceFromOptions();
+				//machine.purchaseProduct(selection);
+
 
 				//way to log and store selection
 
@@ -78,8 +86,10 @@ public class VendingMachineCLI {
 				//current money provided method called from bank
 
 			} else if (choice.equals(MAIN_MENU_OPTION_EXIT)) {
-				//new instance vending machine closes bank vm.closeBank()
+				machine.currentBank.returnChange();
+
 				// vending machine closes log vm.exitDialogue();
+
 				System.exit(1);
 
 			} else if (choice.equals(PURCHASE_MENU_OPTION_FINISH_TRANSACTION)) {
@@ -92,11 +102,11 @@ public class VendingMachineCLI {
 			//feed Money
 			else if (choice.equals(PURCHASE_MENU_OPTION_FEED_MONEY)) {
 				System.out.println();
-				System.out.println("Current Money Provided: $" + BigDecimal.valueOf((double)  machine.currentBank.getCurrentBalance() / 100));
+				System.out.println("Current Money Provided: $" + BigDecimal.valueOf((double) machine.currentBank.getCurrentBalance()));
 
 				String deposit = (String) menu.getChoiceFromOptions(DEPOSIT_MENU_OPTIONS);
 
-			 machine.feedMoney(deposit);
+			 	machine.feedMoney(deposit);
 
 
 

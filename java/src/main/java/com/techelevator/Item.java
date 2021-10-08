@@ -24,6 +24,9 @@ public abstract class Item implements Buyable {
         return price;
     }
 
+    public int getQuantity() {
+        return quantity;
+    }
 
     //constructor
     public Item(String slotId, String name, String price) {
@@ -33,12 +36,15 @@ public abstract class Item implements Buyable {
     }
 
     //METHODS
-    public String dispense(){
+    public String dispense(Item productType){
         String result = "";
 
-        // have it remove and adjust quantity
-        //display item specific text
-        // sold out error when quantity = 0;
+        if (this.quantity > 0){
+            this.quantity -= 1;
+            result = productType.dispense(); // this may not work
+        } if (this.quantity == 0){
+            return "SOLD OUT";
+        }
 
         return result;
     }
