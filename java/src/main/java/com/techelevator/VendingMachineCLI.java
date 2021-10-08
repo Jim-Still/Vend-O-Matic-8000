@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 public class VendingMachineCLI {
 
 	//EXECUTION ENTRY POINT
-	public static void main(String[] args) throws FileNotFoundException {
+	public static void main(String[] args) {
 		Menu menu = new Menu(System.in, System.out);
 		VendingMachineCLI cli = new VendingMachineCLI(menu);
 		cli.run();
@@ -37,20 +37,19 @@ public class VendingMachineCLI {
 	private static final String[] MAIN_DISPLAY_MENU_OPTIONS = {MAIN_MENU_OPTION_PURCHASE, MAIN_MENU_OPTION_EXIT};
 	private static final String[] PURCHASE_MENU_OPTIONS = {PURCHASE_MENU_OPTION_FEED_MONEY, PURCHASE_MENU_OPTION_SELECT_PRODUCT, PURCHASE_MENU_OPTION_FINISH_TRANSACTION};
 	private static final String[] DEPOSIT_MENU_OPTIONS = {DEPOSIT_MENU_OPTION_ONE, DEPOSIT_MENU_OPTION_TWO, DEPOSIT_MENU_OPTION_FIVE, DEPOSIT_MENU_OPTION_TEN};
-	private  String[] selectionChoice = machine.currentInventory.getInventory().keySet().toArray(new String[0]);
+	String[] selectionChoice;
 
 	private Menu menu;
 
-	public VendingMachineCLI(Menu menu) throws FileNotFoundException {
+	public VendingMachineCLI(Menu menu) {
 		this.menu = menu;
 	}
 
-
 	public void run() {
 
-
-
 		machine.currentInventory.stock();
+		selectionChoice = machine.currentInventory.getInventory().keySet().toArray(new String[machine.currentInventory.getInventory().size()]);
+
 
 		String[] activeMenu = MAIN_MENU_OPTIONS;
 
@@ -70,27 +69,20 @@ public class VendingMachineCLI {
 				activeMenu = PURCHASE_MENU_OPTIONS;
 			} else if (choice.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)) {
 
-
+				System.out.println();
 				machine.displayMenu();
-
 				System.out.println();
 
 				System.out.println("Current Money Provided: $" + BigDecimal.valueOf((double) machine.currentBank.getCurrentBalance()));
 
-				System.out.println();
+				System.out.print(PURCHASE_MENU_OPTION_SELECT_PRODUCT );
 
-				System.out.print(PURCHASE_MENU_OPTION_SELECT_PRODUCT + ": ");
 
 				String selection = (String) menu.getChoiceFromOptions(selectionChoice);
 				machine.purchaseProduct(selection);
 
 
 				//way to log and store selection
-
-				//Reference selectProduct() in VendingMachine
-				// count of top menu / main menu display
-
-				//current money provided method called from bank
 
 			} else if (choice.equals(MAIN_MENU_OPTION_EXIT)) {
 				machine.currentBank.returnChange();
@@ -114,10 +106,6 @@ public class VendingMachineCLI {
 				String deposit = (String) menu.getChoiceFromOptions(DEPOSIT_MENU_OPTIONS);
 
 			 	machine.feedMoney(deposit);
-
-
-
-
 
 			}
 		}

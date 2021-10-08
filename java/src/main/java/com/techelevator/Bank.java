@@ -7,6 +7,7 @@ public class Bank {
     private int currentBalance = 0;
 
 
+
     public int getCurrentBalance() {
         return currentBalance / 100;
     }

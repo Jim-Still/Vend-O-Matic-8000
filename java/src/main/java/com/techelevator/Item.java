@@ -37,7 +37,7 @@ public abstract class Item implements Buyable {
 
     //METHODS
     public String dispense(Item productType){
-        String result = "";
+        String result = "TEST TEST WOOOO";
 
         if (this.quantity > 0){
             this.quantity -= 1;

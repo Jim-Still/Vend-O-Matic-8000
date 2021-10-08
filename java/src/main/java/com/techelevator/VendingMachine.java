@@ -17,9 +17,8 @@ public class VendingMachine {
     public Logger audit = new Logger();
 
 
-
     //constructors
-    public VendingMachine() throws FileNotFoundException { }
+    public VendingMachine() { }
 
     //methods
 
@@ -28,9 +27,9 @@ public class VendingMachine {
         //user makes a selection from the menu using a code
         // product does not exist, customer returns to display menu
 
-        if(!selection.equals(currentInventory.getInventory().keySet())){   //risky, this may not work
-            System.out.println("NOT VALID OPTION");
-        }
+//        if(!selection.equals(currentInventory.getInventory().keySet())){   //risky, this may not work
+//            System.out.println("NOT VALID OPTION");
+//        }
 
         for(Item selectedProducts : currentInventory.getInventory().values()){
             selectedProducts.dispense(selectedProducts);
