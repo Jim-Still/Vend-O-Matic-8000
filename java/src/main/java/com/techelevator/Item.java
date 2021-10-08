@@ -45,6 +45,6 @@ public abstract class Item implements Buyable {
 
     @Override
     public String toString() {
-        return this.slotId + " | " + this.name + " | " + this.price;
+        return this.slotId + " | " + this.name + " | " + this.price + " | " + this.quantity;
     }
 }

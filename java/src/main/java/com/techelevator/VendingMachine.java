@@ -36,7 +36,7 @@ public class VendingMachine {
 
     public void displayMenu() {
 
-        for (Item item : this.getInventory().values()) {
+        for (Item item : inventory.values()) {
             System.out.println(item);
         }
     }
@@ -45,7 +45,6 @@ public class VendingMachine {
 
         File inventoryFile = new File("vendingmachine.csv");
         try (Scanner fileScanner = new Scanner(inventoryFile)) {
-
 
             while (fileScanner.hasNextLine()) {
                 String inventoryLine = fileScanner.nextLine();
@@ -80,7 +79,6 @@ public class VendingMachine {
         }
 
     }
-
 
     public String toStringDisplayItems(){
         for (String item : inventory.keySet()){

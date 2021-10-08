@@ -4,25 +4,19 @@ import java.math.BigDecimal;
 
 public class Bank {
 
-    //private member variables
-    private int currentBalance = 0;
-    private int currentMoneyProvided = 0; // This will be displayed on the console
-    private int changeGiven = 0;
+    private int currentBalance = 0;  // This will be displayed on the console use the verbage ("Current Money Provided)
 
-    //getters and setters(?)
+
     public int getCurrentBalance() {
         return currentBalance;
     }
 
-    public int getCurrentMoneyProvided() {
-        return currentMoneyProvided;
-    }
-
-    public void setCurrentMoneyProvided(int currentMoneyProvided) {
-        this.currentMoneyProvided = currentMoneyProvided;
-    }
-
     public int getChangeGiven() {
+        int changeGiven = currentBalance;
+
+        //can declare current balance = change given
+
+
         return changeGiven;
     }
 
@@ -33,14 +27,15 @@ public class Bank {
 
     //METHODS
 
-//    public int deposit() {
-//
-//    }
+    public void deposit() {
+
+    }
 
 
-    // deposit();
+    // deposit(); -- technically the setter.
+
     // returnChange();
-    // feedMoney() (?) - use this method to set currentMoneyProvided()
+
 
 
     public String toStringCurrentBalance() {
@@ -48,9 +43,9 @@ public class Bank {
     }
 
     public String toStringCurrentMoneyProvided() {
-        return "Current Money Provided: $" + BigDecimal.valueOf((double) currentMoneyProvided / 100);
+        return "Current Money Provided: $" + BigDecimal.valueOf((double) currentBalance/ 100);
     }
     public String toStringChangeGiven() {
-        return "Change: $" + BigDecimal.valueOf((double) changeGiven / 100);
+        return "Change: $" + BigDecimal.valueOf((double) currentBalance/ 100);
     }
 }
