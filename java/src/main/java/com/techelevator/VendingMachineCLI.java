@@ -2,6 +2,8 @@ package com.techelevator;
 
 import com.techelevator.view.Menu;
 
+import java.math.BigDecimal;
+
 public class VendingMachineCLI {
 
 	//EXECUTION ENTRY POINT
@@ -28,10 +30,10 @@ public class VendingMachineCLI {
 	private static final String DEPOSIT_MENU_OPTION_TEN = "$10";
 
 	//MENU COLLECTIONS
-	private static final String[] MAIN_MENU_OPTIONS = { MAIN_MENU_OPTION_DISPLAY_ITEMS, MAIN_MENU_OPTION_PURCHASE, MAIN_MENU_OPTION_EXIT };
-	private static final String[] MAIN_DISPLAY_MENU_OPTIONS = { MAIN_MENU_OPTION_PURCHASE, MAIN_MENU_OPTION_EXIT };
-	private static final String[] PURCHASE_MENU_OPTIONS = { PURCHASE_MENU_OPTION_FEED_MONEY, PURCHASE_MENU_OPTION_SELECT_PRODUCT, PURCHASE_MENU_OPTION_FINISH_TRANSACTION  };
-	private static final String[] DEPOSIT_MENU_OPTIONS = { DEPOSIT_MENU_OPTION_ONE,DEPOSIT_MENU_OPTION_TWO,DEPOSIT_MENU_OPTION_FIVE,DEPOSIT_MENU_OPTION_TEN};
+	private static final String[] MAIN_MENU_OPTIONS = {MAIN_MENU_OPTION_DISPLAY_ITEMS, MAIN_MENU_OPTION_PURCHASE, MAIN_MENU_OPTION_EXIT};
+	private static final String[] MAIN_DISPLAY_MENU_OPTIONS = {MAIN_MENU_OPTION_PURCHASE, MAIN_MENU_OPTION_EXIT};
+	private static final String[] PURCHASE_MENU_OPTIONS = {PURCHASE_MENU_OPTION_FEED_MONEY, PURCHASE_MENU_OPTION_SELECT_PRODUCT, PURCHASE_MENU_OPTION_FINISH_TRANSACTION};
+	private static final String[] DEPOSIT_MENU_OPTIONS = {DEPOSIT_MENU_OPTION_ONE, DEPOSIT_MENU_OPTION_TWO, DEPOSIT_MENU_OPTION_FIVE, DEPOSIT_MENU_OPTION_TEN};
 
 
 	private Menu menu;
@@ -56,13 +58,13 @@ public class VendingMachineCLI {
 			//in main menu - user selects display items:
 			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
 
-  				machine.displayMenu();
-  				activeMenu = MAIN_DISPLAY_MENU_OPTIONS;
+				machine.displayMenu();
+				activeMenu = MAIN_DISPLAY_MENU_OPTIONS;
 
-  				// user selects Purchase, then displays this menu:
+				// user selects Purchase, then displays this menu:
 			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
 				activeMenu = PURCHASE_MENU_OPTIONS;
-			} else if(choice.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)) {
+			} else if (choice.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)) {
 				machine.displayMenu();
 				System.out.println();
 				System.out.print(PURCHASE_MENU_OPTION_SELECT_PRODUCT + ": ");
@@ -80,16 +82,26 @@ public class VendingMachineCLI {
 				// vending machine closes log vm.exitDialogue();
 				System.exit(1);
 
-			} else if (choice.equals(PURCHASE_MENU_OPTION_FINISH_TRANSACTION)){
-				activeMenu = MAIN_MENU_OPTIONS;
-				// gives you change and returns you to main menu
-			}
-	        //feed Money
-			//else if (choice.equals(PURCHASE_MENU_OPTION_DEPOSIT_MONEY)){
-			//String deposit = (String) menu.getChoiceFromOptions(DEPOSIT_MENU_OPTIONS);
-			// vm.makeDeposit(deposit);
-			//deposit() - is this its own loop?
-		}
-	}
+			} else if (choice.equals(PURCHASE_MENU_OPTION_FINISH_TRANSACTION)) {
 
+				System.out.println(machine.currentBank.returnChange());
+
+				activeMenu = MAIN_MENU_OPTIONS;
+
+			}
+			//feed Money
+			else if (choice.equals(PURCHASE_MENU_OPTION_FEED_MONEY)) {
+				System.out.println();
+				System.out.println("Current Money Provided: $" + BigDecimal.valueOf((double)  machine.currentBank.getCurrentBalance() / 100));
+
+				String deposit = (String) menu.getChoiceFromOptions(DEPOSIT_MENU_OPTIONS);
+
+			 machine.feedMoney(deposit);
+
+
+
+			}
+		}
+
+	}
 }

@@ -13,6 +13,7 @@ public class VendingMachine {
 
     //members
     public Map<String, Item> inventory = new HashMap<>();
+    Bank currentBank = new Bank();
 //    public Logger audit = new Logger();
 
 
@@ -78,6 +79,10 @@ public class VendingMachine {
             System.out.println("Insufficient Inventory");
         }
 
+    }
+
+    public void feedMoney(String amountToDeposit){
+        this.currentBank.deposit(amountToDeposit);
     }
 
     public String toStringDisplayItems(){
