@@ -2,16 +2,19 @@ package com.techelevator;
 
 import com.techelevator.view.Menu;
 
+import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 
 public class VendingMachineCLI {
 
 	//EXECUTION ENTRY POINT
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException {
 		Menu menu = new Menu(System.in, System.out);
 		VendingMachineCLI cli = new VendingMachineCLI(menu);
 		cli.run();
 	}
+
+	VendingMachine machine = new VendingMachine();
 
 	//MAIN OPTIONS
 	private static final String MAIN_MENU_OPTION_DISPLAY_ITEMS = "Display Vending Machine Items";
@@ -34,24 +37,23 @@ public class VendingMachineCLI {
 	private static final String[] MAIN_DISPLAY_MENU_OPTIONS = {MAIN_MENU_OPTION_PURCHASE, MAIN_MENU_OPTION_EXIT};
 	private static final String[] PURCHASE_MENU_OPTIONS = {PURCHASE_MENU_OPTION_FEED_MONEY, PURCHASE_MENU_OPTION_SELECT_PRODUCT, PURCHASE_MENU_OPTION_FINISH_TRANSACTION};
 	private static final String[] DEPOSIT_MENU_OPTIONS = {DEPOSIT_MENU_OPTION_ONE, DEPOSIT_MENU_OPTION_TWO, DEPOSIT_MENU_OPTION_FIVE, DEPOSIT_MENU_OPTION_TEN};
-
+	private  String[] selectionChoice = machine.currentInventory.getInventory().keySet().toArray(new String[0]);
 
 	private Menu menu;
 
-	public VendingMachineCLI(Menu menu) {
+	public VendingMachineCLI(Menu menu) throws FileNotFoundException {
 		this.menu = menu;
 	}
 
 
 	public void run() {
 
-		VendingMachine machine = new VendingMachine();
+
 
 		machine.currentInventory.stock();
 
 		String[] activeMenu = MAIN_MENU_OPTIONS;
 
-//		Item[] selectionChoice = (Item[]) machine.currentInventory.getInventory().values().toArray();
 
 		while (true) {
 			//start with main menu (see line 48)
@@ -70,12 +72,17 @@ public class VendingMachineCLI {
 
 
 				machine.displayMenu();
-				System.out.println("Current Money Provided: $" + BigDecimal.valueOf((double) machine.currentBank.getCurrentBalance()));
+
 				System.out.println();
+
+				System.out.println("Current Money Provided: $" + BigDecimal.valueOf((double) machine.currentBank.getCurrentBalance()));
+
+				System.out.println();
+
 				System.out.print(PURCHASE_MENU_OPTION_SELECT_PRODUCT + ": ");
 
-				//String selection = (String) menu.getChoiceFromOptions();
-				//machine.purchaseProduct(selection);
+				String selection = (String) menu.getChoiceFromOptions(selectionChoice);
+				machine.purchaseProduct(selection);
 
 
 				//way to log and store selection
@@ -107,6 +114,8 @@ public class VendingMachineCLI {
 				String deposit = (String) menu.getChoiceFromOptions(DEPOSIT_MENU_OPTIONS);
 
 			 	machine.feedMoney(deposit);
+
+
 
 
 

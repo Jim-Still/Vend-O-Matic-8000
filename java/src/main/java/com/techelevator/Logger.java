@@ -7,18 +7,18 @@ import java.io.PrintWriter;
 
 public class Logger {
 
-    private File auditFile = new File("log.txt");
+    private File auditFile;
     private boolean appendMode;
     private PrintWriter auditWriter;
 
-
-
-    //Constructor
+//instantiation - defining the constructor
 
     public Logger() throws FileNotFoundException {
+        this.auditFile = new File ("log.txt");
+        this.appendMode = true;
         this.auditWriter = new PrintWriter(new FileOutputStream(auditFile, appendMode));
-    }
 
+    }
 
     public void log(String event){
         auditWriter.println(event);

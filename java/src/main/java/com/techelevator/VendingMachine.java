@@ -14,12 +14,12 @@ public class VendingMachine {
 
     Inventory currentInventory = new Inventory();
     Bank currentBank = new Bank();
-//    public Logger audit = new Logger();
+    public Logger audit = new Logger();
 
 
 
     //constructors
-    public VendingMachine() { }
+    public VendingMachine() throws FileNotFoundException { }
 
     //methods
 
@@ -38,11 +38,14 @@ public class VendingMachine {
     }
 
 
-    // LOGGER - NEED TO FIX
-//    public void audit(String event){
-//        //how do we pass that event?
-//        audit.log(event);
-//    }
+//     LOGGER - NEED TO FIX
+
+
+    public void audit(String event){
+            //how do we pass that event?
+                audit.log(event);
+        }
+
 
     public void displayMenu() {
         for (Item item : currentInventory.getInventory().values()) {
@@ -53,6 +56,9 @@ public class VendingMachine {
 
     public void feedMoney(String amountToDeposit){
         this.currentBank.deposit(amountToDeposit);
+        this.audit.log(amountToDeposit);
     }
+
+
 
 }
