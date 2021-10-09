@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 public class Bank {
 
-    private BigDecimal currentBalance = new BigDecimal("0");
+    private BigDecimal currentBalance;
 
 
     public BigDecimal getCurrentBalance() {
@@ -14,6 +14,7 @@ public class Bank {
 
     //constructor
     public Bank() {
+        this.currentBalance = new BigDecimal("0");
     }
 
     //Setter
@@ -27,26 +28,26 @@ public class Bank {
 
     public void deposit(String amountToDeposit) {
 
-        if (amountToDeposit.equals("1")){
+        if (amountToDeposit.equals("$1")){
             BigDecimal dollar = new BigDecimal(1.00);
-            this.currentBalance.add(dollar);
+            this.currentBalance = this.currentBalance.add(dollar);
         }
-        if (amountToDeposit.equals("2")){
+        if (amountToDeposit.equals("$2")){
             BigDecimal twoDollar = new BigDecimal(2.00);
-            this.currentBalance.add(twoDollar);
+            this.currentBalance = this.currentBalance.add(twoDollar);
         }
-        if (amountToDeposit.equals("3")){
+        if (amountToDeposit.equals("$5")){
             BigDecimal fiveDollar = new BigDecimal(5.00);
-            this.currentBalance.add(fiveDollar);
+            this.currentBalance = this.currentBalance.add(fiveDollar);
         }
-        if (amountToDeposit.equals("4")){
+        if (amountToDeposit.equals("$10")){
             BigDecimal tenDollar = new BigDecimal(10.00);
-            this.currentBalance.add(tenDollar);
+            this.currentBalance = this.currentBalance.add(tenDollar);
         }
     }
 
 
-    public String returnChange() {
+    public void returnChange() {
         BigDecimal startingBalance = currentBalance;
         Integer convertedCurrentBalance = startingBalance.intValue();
         int numberOfQuarters = 0;
@@ -58,19 +59,19 @@ public class Bank {
             if (convertedCurrentBalance >= 25) {
                 numberOfQuarters++;
                 BigDecimal quarter = new BigDecimal(0.25);
-                currentBalance.subtract(quarter);
+                this.currentBalance = this.currentBalance.subtract(quarter);
             } else if (convertedCurrentBalance >= 10) {
                 numberOfDimes++;
                 BigDecimal dime = new BigDecimal(0.10);
-                currentBalance.subtract(dime);
+                this.currentBalance = this.currentBalance.subtract(dime);
             } else if (convertedCurrentBalance >= 5) {
                 BigDecimal nickel = new BigDecimal(0.05);
-                currentBalance.subtract(nickel);
+                this.currentBalance = this.currentBalance.subtract(nickel);
             }
         }
 
-        changeReturnStatement = "Your change is $" + currentBalance + " in \n" + numberOfQuarters + " quarter(s), " + numberOfDimes + " dime(s), " + numberOfNickels + " nickel(s).";
+        changeReturnStatement = "Your change is $" + this.currentBalance + " in \n" + numberOfQuarters + " quarter(s), " + numberOfDimes + " dime(s), " + numberOfNickels + " nickel(s).";
 
-        return changeReturnStatement;
+        System.out.println(changeReturnStatement);
     }
 }

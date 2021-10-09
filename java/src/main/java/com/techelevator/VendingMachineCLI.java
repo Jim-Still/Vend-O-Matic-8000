@@ -75,32 +75,28 @@ public class VendingMachineCLI {
 
 				System.out.println("Current Money Provided: $" + machine.currentBank.getCurrentBalance());
 
-				System.out.print(PURCHASE_MENU_OPTION_SELECT_PRODUCT );
-
-				//***Need to hijack the Scanner from Menu***
-
-				System.out.println();
-				machine.displayMenu();
-				System.out.println();
-
 				String userSelection = (String) menu.getChoiceFromOptions(selectionChoice, true);
 				machine.purchaseProduct(userSelection);
 
+				activeMenu = PURCHASE_MENU_OPTIONS;
 
-				//way to log and store selection
+
 
 			} else if (choice.equals(MAIN_MENU_OPTION_EXIT)) {
-				machine.currentBank.returnChange();
+
 
 				// vending machine closes log vm.exitDialogue();
+
+				System.out.println("We're gonna exit");
 
 				System.exit(1);
 
 			} else if (choice.equals(PURCHASE_MENU_OPTION_FINISH_TRANSACTION)) {
 
-				System.out.println(machine.currentBank.returnChange());
+				machine.currentBank.returnChange();
 
-				activeMenu = MAIN_MENU_OPTIONS;
+				activeMenu = MAIN_DISPLAY_MENU_OPTIONS;
+
 
 			}
 			//feed Money
@@ -111,6 +107,8 @@ public class VendingMachineCLI {
 				String deposit = (String) menu.getChoiceFromOptions(DEPOSIT_MENU_OPTIONS);
 
 			 	machine.feedMoney(deposit);
+
+			 	activeMenu = PURCHASE_MENU_OPTIONS;
 
 			}
 		}

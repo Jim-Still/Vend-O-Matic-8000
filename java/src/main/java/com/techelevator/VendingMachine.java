@@ -38,14 +38,14 @@ public class VendingMachine {
 
             //This should adjust the balance
 
-           BigDecimal convertedPrice = currentInventory.getInventory().get(selection).getPrice();
-
-            BigDecimal newBalance = currentBank.getCurrentBalance(); //.subtract
+            BigDecimal newBalance = currentBank.getCurrentBalance().subtract(currentInventory.getInventory().get(selection).getPrice()); //.subtract
             currentBank.setCurrentBalance(newBalance);
 
             //subtract 1 from the quantity
             int newQuantity = currentInventory.getInventory().get(selection).getQuantity() - 1;
             currentInventory.getInventory().get(selection).setQuantity(newQuantity);
+
+            System.out.println("It worked!");
 
             //can we pass this to the logger right from here?
             //pass the Item name && Item slotId && starting balance && new balance
