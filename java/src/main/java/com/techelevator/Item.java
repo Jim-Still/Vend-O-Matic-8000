@@ -10,6 +10,7 @@ public abstract class Item {
     private String slotId;
     private BigDecimal price;
     private int quantity = 5;
+    private String dispenseSound;
 
 
     //getters and setters(?)
@@ -25,6 +26,17 @@ public abstract class Item {
         return price;
     }
 
+    public void setDispenseSound(String dispenseSound) {
+        this.dispenseSound = dispenseSound;
+    }
+
+    public String getDispenseSound() {
+        return dispenseSound;
+
+
+
+    }
+
     public int getQuantity() {
         return quantity;
     }
@@ -38,7 +50,9 @@ public abstract class Item {
         this.slotId = slotId;
         this.name = name;
         this.price = price;
+        this.dispenseSound = "";
     }
+
 
     //METHODS
 

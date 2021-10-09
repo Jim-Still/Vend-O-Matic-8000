@@ -5,14 +5,19 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.sql.SQLOutput;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.SimpleTimeZone;
 
 public class Logger {
 
     private File auditFile;
     private boolean appendMode;
     private PrintWriter auditWriter;
+    private LocalDate auditDate = LocalDate.from(LocalDateTime.now());
 
-//instantiation - defining the constructor
 
     public Logger() {
 
@@ -21,12 +26,22 @@ public class Logger {
             this.appendMode = true;
             this.auditWriter = new PrintWriter(new FileOutputStream(auditFile, appendMode));
         } catch (FileNotFoundException fnf){
-            System.out.println("YEUNGLING");
+            System.out.println("No auditing! Take what you can get!");
         }
     }
 
     public void log(String event){
-        auditWriter.println(event);
+
+        String[] eventBreakDown = event.split(",");
+        String transactionType = eventBreakDown[0];
+        String startingMoney = eventBreakDown[1];
+        String endingMoney = eventBreakDown[2];
+
+        SimpleDateFormat formatter= new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        Date date = new Date(System.currentTimeMillis());
+        //
+
+        auditWriter.println(formatter.format(date) + " " + transactionType + ": $" + startingMoney  + " $" + endingMoney);
         auditWriter.close();
     }
 }

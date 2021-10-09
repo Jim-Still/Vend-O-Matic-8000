@@ -4,6 +4,8 @@ import com.techelevator.view.Menu;
 
 import java.io.FileNotFoundException;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class VendingMachineCLI {
 
@@ -73,7 +75,7 @@ public class VendingMachineCLI {
 				machine.displayMenu();
 				System.out.println();
 
-				System.out.println("Current Money Provided: $" + machine.currentBank.getCurrentBalance());
+				System.out.println("Current Money Provided: $" + machine.getCurrentBalance());
 
 				String userSelection = (String) menu.getChoiceFromOptions(selectionChoice, true);
 				machine.purchaseProduct(userSelection);
@@ -81,19 +83,17 @@ public class VendingMachineCLI {
 				activeMenu = PURCHASE_MENU_OPTIONS;
 
 
-
 			} else if (choice.equals(MAIN_MENU_OPTION_EXIT)) {
 
-
-				// vending machine closes log vm.exitDialogue();
-
-				System.out.println("We're gonna exit");
+				System.out.println(" ");
+				System.out.println(machine.exitDialogue());
+				System.out.println(" ");
 
 				System.exit(1);
 
 			} else if (choice.equals(PURCHASE_MENU_OPTION_FINISH_TRANSACTION)) {
 
-				machine.currentBank.returnChange();
+				machine.returnChange();
 
 				activeMenu = MAIN_DISPLAY_MENU_OPTIONS;
 
@@ -102,7 +102,7 @@ public class VendingMachineCLI {
 			//feed Money
 			else if (choice.equals(PURCHASE_MENU_OPTION_FEED_MONEY)) {
 				System.out.println();
-				System.out.println("Current Money Provided: $" + machine.currentBank.getCurrentBalance());
+				System.out.println("Current Money Provided: $" + machine.getCurrentBalance());
 
 				String deposit = (String) menu.getChoiceFromOptions(DEPOSIT_MENU_OPTIONS);
 

@@ -14,19 +14,28 @@ import java.io.File;
 public class VendingMachine {
 
     Inventory currentInventory = new Inventory();
-    Bank currentBank = new Bank();
-//    public Logger audit = new Logger();
+    private BigDecimal currentBalance;
+    public Logger audit = new Logger();
+
+    public void setCurrentBalance(BigDecimal currentBalance) {
+        this.currentBalance = currentBalance;
+    }
+    public BigDecimal getCurrentBalance() {
+        return currentBalance;
+    }
 
 
     //constructors
-    public VendingMachine() { }
+    public VendingMachine() {
+        this.currentBalance = new BigDecimal("0");
+    }
 
     //methods
 
-// selectProduct() - the same thing as dispense() / each selection purchases that item
+
     public void purchaseProduct(String selection){
-        //user makes a selection from the menu using a code
-        // product does not exist, customer returns to display menu
+
+        BigDecimal startingBalance = currentBalance;
 
         if(!currentInventory.getInventory().containsKey(selection)) {
             System.out.println("NOT A VALID OPTION. TRY AGAIN.");
@@ -34,44 +43,111 @@ public class VendingMachine {
         if(currentInventory.getInventory().get(selection).getQuantity() == 0){
             System.out.println("SOLD OUT");
         }
+
         if(currentInventory.getInventory().containsKey(selection) && currentInventory.getInventory().get(selection).getQuantity() > 0)  {
 
             //This should adjust the balance
+            BigDecimal itemPriceCheck = currentInventory.getInventory().get(selection).getPrice();
+            BigDecimal moneyAvailable = getCurrentBalance();
 
-            BigDecimal newBalance = currentBank.getCurrentBalance().subtract(currentInventory.getInventory().get(selection).getPrice()); //.subtract
-            currentBank.setCurrentBalance(newBalance);
+            if ( itemPriceCheck.compareTo(moneyAvailable) < 0){
 
-            //subtract 1 from the quantity
-            int newQuantity = currentInventory.getInventory().get(selection).getQuantity() - 1;
-            currentInventory.getInventory().get(selection).setQuantity(newQuantity);
+                BigDecimal newBalance = getCurrentBalance().subtract(currentInventory.getInventory().get(selection).getPrice()); //.subtract
+                setCurrentBalance(newBalance);
 
-            System.out.println("It worked!");
+                //subtract 1 from the quantity
+                int newQuantity = currentInventory.getInventory().get(selection).getQuantity() - 1;
+                currentInventory.getInventory().get(selection).setQuantity(newQuantity);
+
+                //dispenses item
+
+                System.out.println(currentInventory.getInventory().get(selection).getName() + " $" + currentInventory.getInventory().get(selection).getPrice() + " | Remaining Balance: $" + getCurrentBalance() );
+                System.out.println(currentInventory.getInventory().get(selection).getDispenseSound());
+
+            } else {
+                System.out.println("You need to feed the machine money!!!");
+            }
 
             //can we pass this to the logger right from here?
+            String productName = currentInventory.getInventory().get(selection).getName();
+            String slotIdAudit = currentInventory.getInventory().get(selection).getSlotId();
+            String toAdd = productName + " " + slotIdAudit;
+
+            audit.log(toAdd + "," + startingBalance + "," + getCurrentBalance());
+
+
             //pass the Item name && Item slotId && starting balance && new balance
         }
     }
-
-    public String dispense(Item productType){
-        String result = "TEST TEST WOOOO";
-
-
-
-        return result;
-    }
-
 
     public void displayMenu() {
         for (Item item : currentInventory.getInventory().values()) {
             System.out.println(item);
         }
     }
+    public String exitDialogue(){
+        return "Umbrella Corp. thanks you for using Vendo-Matic 800 for your snacking needs.\nCome back again soon!";
+    }
 
+    public void audit(String event){
+
+    }
 
     public void feedMoney(String amountToDeposit){
-        this.currentBank.deposit(amountToDeposit);
-//        this.audit.log(amountToDeposit);
+
+        BigDecimal startingBalance = currentBalance;
+
+        if (amountToDeposit.equals("$1")){
+            BigDecimal dollar = new BigDecimal(1.00);
+            this.currentBalance = this.currentBalance.add(dollar);
+        }
+        if (amountToDeposit.equals("$2")){
+            BigDecimal twoDollar = new BigDecimal(2.00);
+            this.currentBalance = this.currentBalance.add(twoDollar);
+        }
+        if (amountToDeposit.equals("$5")){
+            BigDecimal fiveDollar = new BigDecimal(5.00);
+            this.currentBalance = this.currentBalance.add(fiveDollar);
+        }
+        if (amountToDeposit.equals("$10")){
+            BigDecimal tenDollar = new BigDecimal(10.00);
+            this.currentBalance = this.currentBalance.add(tenDollar);
+        }
+
+        String event = "FEED MONEY "+ "," + startingBalance + "," + getCurrentBalance() + ",";
+        audit.log(event);
+
     }
+
+    public void returnChange() {
+        BigDecimal startingBalance = currentBalance;
+        Integer convertedCurrentBalance = startingBalance.intValue();
+        int numberOfQuarters = 0;
+        int numberOfDimes = 0;
+        int numberOfNickels = 0;
+        String changeReturnStatement = "";
+
+        while (convertedCurrentBalance > 0) {
+            if (convertedCurrentBalance >= 25) {
+                numberOfQuarters++;
+                BigDecimal quarter = new BigDecimal(0.25);
+                this.currentBalance = this.currentBalance.subtract(quarter);
+            } else if (convertedCurrentBalance >= 10) {
+                numberOfDimes++;
+                BigDecimal dime = new BigDecimal(0.10);
+                this.currentBalance = this.currentBalance.subtract(dime);
+            } else if (convertedCurrentBalance >= 5) {
+                BigDecimal nickel = new BigDecimal(0.05);
+                this.currentBalance = this.currentBalance.subtract(nickel);
+            }
+        }
+
+        changeReturnStatement = "Your change is $" + this.currentBalance + " in \n" + numberOfQuarters + " quarter(s), " + numberOfDimes + " dime(s), " + numberOfNickels + " nickel(s).";
+        audit.log("GIVE CHANGE" + "," + startingBalance + "," + getCurrentBalance());
+        System.out.println(changeReturnStatement);
+    }
+
+
 
 
 
