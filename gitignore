@@ -60,6 +60,9 @@ bin/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+log.txt
+salesreport.txt
+
 
 # Editor directories and files
 .idea

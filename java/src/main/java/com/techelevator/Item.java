@@ -2,7 +2,7 @@ package com.techelevator;
 
 import java.lang.reflect.Array;
 
-public abstract class Item implements Buyable {
+public abstract class Item {
 
     //private member variables
     private String name;
@@ -28,6 +28,10 @@ public abstract class Item implements Buyable {
         return quantity;
     }
 
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
     //constructor
     public Item(String slotId, String name, String price) {
         this.slotId = slotId;
@@ -36,18 +40,7 @@ public abstract class Item implements Buyable {
     }
 
     //METHODS
-    public String dispense(Item productType){
-        String result = "TEST TEST WOOOO";
 
-        if (this.quantity > 0){
-            this.quantity -= 1;
-            result = productType.dispense(); // this may not work
-        } if (this.quantity == 0){
-            return "SOLD OUT";
-        }
-
-        return result;
-    }
 
     @Override
     public String toString() {

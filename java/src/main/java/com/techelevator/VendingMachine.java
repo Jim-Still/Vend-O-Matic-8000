@@ -27,23 +27,35 @@ public class VendingMachine {
         //user makes a selection from the menu using a code
         // product does not exist, customer returns to display menu
 
-//        if(!selection.equals(currentInventory.getInventory().keySet())){   //risky, this may not work
-//            System.out.println("NOT VALID OPTION");
-//        }
+        if(!currentInventory.getInventory().containsKey(selection)) {
+            System.out.println("NOT A VALID OPTION. TRY AGAIN.");
+        }
+        if(currentInventory.getInventory().get(selection).getQuantity() == 0){
+            System.out.println("SOLD OUT");
+        }
+        if(currentInventory.getInventory().containsKey(selection) && currentInventory.getInventory().get(selection).getQuantity() > 0)  {
 
-        for(Item selectedProducts : currentInventory.getInventory().values()){
-            selectedProducts.dispense(selectedProducts);
+            //This should adjust the balance
+            int convertedPrice = Integer.parseInt(currentInventory.getInventory().get(selection).getPrice());
+            int newBalance = currentBank.getCurrentBalance() - convertedPrice;
+            currentBank.setCurrentBalance(newBalance);
+
+            //subtract 1 from the quantity
+            int newQuantity = currentInventory.getInventory().get(selection).getQuantity() - 1;
+            currentInventory.getInventory().get(selection).setQuantity(newQuantity);
+
+            //can we pass this to the logger right from here?
+            //pass the Item name && Item slotId && starting balance && new balance
         }
     }
 
+    public String dispense(Item productType){
+        String result = "TEST TEST WOOOO";
 
-//     LOGGER - NEED TO FIX
 
 
-    public void audit(String event){
-            //how do we pass that event?
-                audit.log(event);
-        }
+        return result;
+    }
 
 
     public void displayMenu() {

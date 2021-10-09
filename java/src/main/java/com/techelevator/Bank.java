@@ -17,6 +17,12 @@ public class Bank {
     public Bank() {
     }
 
+    //Setter
+
+    public void setCurrentBalance(int currentBalance) {
+        this.currentBalance = currentBalance;
+    }
+
 
     //METHODS
 

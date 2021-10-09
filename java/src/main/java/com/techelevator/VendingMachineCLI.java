@@ -77,9 +77,10 @@ public class VendingMachineCLI {
 
 				System.out.print(PURCHASE_MENU_OPTION_SELECT_PRODUCT );
 
+				//***Need to hijack the Scanner from Menu***
 
-				String selection = (String) menu.getChoiceFromOptions(selectionChoice);
-				machine.purchaseProduct(selection);
+//				String selection = (String) menu.;
+//				machine.purchaseProduct(selection);
 
 
 				//way to log and store selection
