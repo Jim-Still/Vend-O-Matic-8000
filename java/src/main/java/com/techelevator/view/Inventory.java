@@ -4,6 +4,7 @@ import com.techelevator.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.math.BigDecimal;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
@@ -26,24 +27,26 @@ public class Inventory {
                 String inventoryLine = fileScanner.nextLine();
                 String[] inventoryItem = inventoryLine.split("\\|");
 
+                BigDecimal price = new BigDecimal(inventoryItem[2]);
+
                 if (inventoryItem[3].equals("Candy")) {
 
-                    Candy candyProduct = candyProduct = new Candy(inventoryItem[0], inventoryItem[1], inventoryItem[2]);
+                    Candy candyProduct = candyProduct = new Candy(inventoryItem[0], inventoryItem[1], price);
                     inventory.put(inventoryItem[0], candyProduct);
 
                 } else if (inventoryItem[3].equals("Chip")) {
 
-                    Chip chipProduct = chipProduct = new Chip(inventoryItem[0], inventoryItem[1], inventoryItem[2]);
+                    Chip chipProduct = chipProduct = new Chip(inventoryItem[0], inventoryItem[1], price);
                     inventory.put(inventoryItem[0], chipProduct);
 
                 } else if (inventoryItem[3].equals("Drink")) {
 
-                    Beverage beverageProduct = beverageProduct = new Beverage(inventoryItem[0], inventoryItem[1], inventoryItem[2]);
+                    Beverage beverageProduct = beverageProduct = new Beverage(inventoryItem[0], inventoryItem[1], price);
                     inventory.put(inventoryItem[0], beverageProduct);
 
                 } else if (inventoryItem[3].equals("Gum")) {
 
-                    Gum gumProduct = gumProduct = new Gum(inventoryItem[0], inventoryItem[1], inventoryItem[2]);
+                    Gum gumProduct = gumProduct = new Gum(inventoryItem[0], inventoryItem[1], price);
                     inventory.put(inventoryItem[0], gumProduct);
 
                 }

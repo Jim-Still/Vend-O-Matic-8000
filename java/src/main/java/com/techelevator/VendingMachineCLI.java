@@ -73,14 +73,18 @@ public class VendingMachineCLI {
 				machine.displayMenu();
 				System.out.println();
 
-				System.out.println("Current Money Provided: $" + BigDecimal.valueOf((double) machine.currentBank.getCurrentBalance()));
+				System.out.println("Current Money Provided: $" + machine.currentBank.getCurrentBalance());
 
 				System.out.print(PURCHASE_MENU_OPTION_SELECT_PRODUCT );
 
 				//***Need to hijack the Scanner from Menu***
 
-//				String selection = (String) menu.;
-//				machine.purchaseProduct(selection);
+				System.out.println();
+				machine.displayMenu();
+				System.out.println();
+
+				String userSelection = (String) menu.getChoiceFromOptions(selectionChoice, true);
+				machine.purchaseProduct(userSelection);
 
 
 				//way to log and store selection
@@ -102,7 +106,7 @@ public class VendingMachineCLI {
 			//feed Money
 			else if (choice.equals(PURCHASE_MENU_OPTION_FEED_MONEY)) {
 				System.out.println();
-				System.out.println("Current Money Provided: $" + BigDecimal.valueOf((double) machine.currentBank.getCurrentBalance()));
+				System.out.println("Current Money Provided: $" + machine.currentBank.getCurrentBalance());
 
 				String deposit = (String) menu.getChoiceFromOptions(DEPOSIT_MENU_OPTIONS);
 

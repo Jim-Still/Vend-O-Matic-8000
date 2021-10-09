@@ -1,5 +1,7 @@
 package com.techelevator;
 
+import java.math.BigDecimal;
+
 public class Candy extends Item {
 
     //Variables
@@ -7,7 +9,7 @@ public class Candy extends Item {
 
 
     //Constructor
-    public Candy(String slotId, String name, String price){
+    public Candy(String slotId, String name, BigDecimal price){
 
         super(slotId, name, price);
     }

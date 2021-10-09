@@ -1,13 +1,14 @@
 package com.techelevator;
 
 import java.lang.reflect.Array;
+import java.math.BigDecimal;
 
 public abstract class Item {
 
     //private member variables
     private String name;
     private String slotId;
-    private String price;
+    private BigDecimal price;
     private int quantity = 5;
 
 
@@ -20,7 +21,7 @@ public abstract class Item {
         return slotId;
     }
 
-    public String getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
@@ -33,7 +34,7 @@ public abstract class Item {
     }
 
     //constructor
-    public Item(String slotId, String name, String price) {
+    public Item(String slotId, String name, BigDecimal price) {
         this.slotId = slotId;
         this.name = name;
         this.price = price;

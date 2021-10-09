@@ -4,6 +4,7 @@ import com.techelevator.*;
 import com.techelevator.view.Inventory;
 
 import java.io.FileNotFoundException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +15,7 @@ public class VendingMachine {
 
     Inventory currentInventory = new Inventory();
     Bank currentBank = new Bank();
-    public Logger audit = new Logger();
+//    public Logger audit = new Logger();
 
 
     //constructors
@@ -36,8 +37,10 @@ public class VendingMachine {
         if(currentInventory.getInventory().containsKey(selection) && currentInventory.getInventory().get(selection).getQuantity() > 0)  {
 
             //This should adjust the balance
-            int convertedPrice = Integer.parseInt(currentInventory.getInventory().get(selection).getPrice());
-            int newBalance = currentBank.getCurrentBalance() - convertedPrice;
+
+           BigDecimal convertedPrice = currentInventory.getInventory().get(selection).getPrice();
+
+            BigDecimal newBalance = currentBank.getCurrentBalance(); //.subtract
             currentBank.setCurrentBalance(newBalance);
 
             //subtract 1 from the quantity
@@ -67,7 +70,7 @@ public class VendingMachine {
 
     public void feedMoney(String amountToDeposit){
         this.currentBank.deposit(amountToDeposit);
-        this.audit.log(amountToDeposit);
+//        this.audit.log(amountToDeposit);
     }
 
 

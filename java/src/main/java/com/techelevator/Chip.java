@@ -1,5 +1,7 @@
 package com.techelevator;
 
+import java.math.BigDecimal;
+
 public class Chip extends Item{
 
     //Variable
@@ -7,7 +9,7 @@ public class Chip extends Item{
 
 
     //Constructor
-    public Chip(String slotId, String name, String price){
+    public Chip(String slotId, String name, BigDecimal price){
         super(slotId, name, price);
     }
 
