@@ -59,6 +59,6 @@ public abstract class Item {
 
     @Override
     public String toString() {
-        return this.slotId + " | " + this.name + " | " + this.price + " | " + this.quantity;
+        return this.slotId + " | " + this.name + " |        " + this.price + "  Qty: " + this.quantity;
     }
 }

@@ -13,7 +13,7 @@ import java.io.File;
 
 public class VendingMachine {
 
-    Inventory currentInventory = new Inventory();
+    public Inventory currentInventory = new Inventory();
     private BigDecimal currentBalance;
     public Logger audit = new Logger();
 
@@ -33,15 +33,18 @@ public class VendingMachine {
     //methods
 
 
-    public void purchaseProduct(String selection){
+    public String purchaseProduct(String selection){
 
         BigDecimal startingBalance = currentBalance;
+        String result = "";
 
         if(!currentInventory.getInventory().containsKey(selection)) {
-            System.out.println("NOT A VALID OPTION. TRY AGAIN.");
+//            System.out.println("NOT A VALID OPTION. TRY AGAIN.");
+            result = "NOT A VALID OPTION. TRY AGAIN.";
         }
         if(currentInventory.getInventory().get(selection).getQuantity() == 0){
-            System.out.println("SOLD OUT");
+//            System.out.println("SOLD OUT");
+            result = "SOLD OUT";
         }
 
         if(currentInventory.getInventory().containsKey(selection) && currentInventory.getInventory().get(selection).getQuantity() > 0)  {
@@ -61,11 +64,14 @@ public class VendingMachine {
 
                 //dispenses item
 
-                System.out.println(currentInventory.getInventory().get(selection).getName() + " $" + currentInventory.getInventory().get(selection).getPrice() + " | Remaining Balance: $" + getCurrentBalance() );
-                System.out.println(currentInventory.getInventory().get(selection).getDispenseSound());
+//                System.out.println(currentInventory.getInventory().get(selection).getName() + " $" + currentInventory.getInventory().get(selection).getPrice() + " | Remaining Balance: $" + getCurrentBalance() );
+//                System.out.println(currentInventory.getInventory().get(selection).getDispenseSound());
+                result = currentInventory.getInventory().get(selection).getName() + " $" + currentInventory.getInventory().get(selection).getPrice() +
+                        " | Remaining Balance: $" + getCurrentBalance() + "\n" + currentInventory.getInventory().get(selection).getDispenseSound();
 
             } else {
-                System.out.println("You need to feed the machine money!!!");
+//                System.out.println("You need to feed the machine money!!!");
+                result = "You need to feed the machine money!!!";
             }
 
             //can we pass this to the logger right from here?
@@ -78,6 +84,7 @@ public class VendingMachine {
 
             //pass the Item name && Item slotId && starting balance && new balance
         }
+        return result;
     }
 
     public void displayMenu() {
@@ -119,7 +126,7 @@ public class VendingMachine {
 
     }
 
-    public void returnChange() {
+    public String returnChange() {
         BigDecimal startingBalance = currentBalance;
         Integer convertedCurrentBalance = startingBalance.intValue();
         int numberOfQuarters = 0;
@@ -144,7 +151,7 @@ public class VendingMachine {
 
         changeReturnStatement = "Your change is $" + this.currentBalance + " in \n" + numberOfQuarters + " quarter(s), " + numberOfDimes + " dime(s), " + numberOfNickels + " nickel(s).";
         audit.log("GIVE CHANGE" + "," + startingBalance + "," + getCurrentBalance());
-        System.out.println(changeReturnStatement);
+        return changeReturnStatement;
     }
 
 

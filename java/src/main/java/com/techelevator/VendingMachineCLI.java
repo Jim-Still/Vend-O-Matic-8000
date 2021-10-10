@@ -78,7 +78,7 @@ public class VendingMachineCLI {
 				System.out.println("Current Money Provided: $" + machine.getCurrentBalance());
 
 				String userSelection = (String) menu.getChoiceFromOptions(selectionChoice, true);
-				machine.purchaseProduct(userSelection);
+				System.out.println(machine.purchaseProduct(userSelection));
 
 				activeMenu = PURCHASE_MENU_OPTIONS;
 
@@ -93,7 +93,7 @@ public class VendingMachineCLI {
 
 			} else if (choice.equals(PURCHASE_MENU_OPTION_FINISH_TRANSACTION)) {
 
-				machine.returnChange();
+				System.out.println(machine.returnChange());
 
 				activeMenu = MAIN_DISPLAY_MENU_OPTIONS;
 

@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.sql.SQLOutput;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -17,7 +18,6 @@ public class Logger {
     private boolean appendMode;
     private PrintWriter auditWriter;
     private LocalDate auditDate = LocalDate.from(LocalDateTime.now());
-
 
     public Logger() {
 
@@ -37,9 +37,9 @@ public class Logger {
         String startingMoney = eventBreakDown[1];
         String endingMoney = eventBreakDown[2];
 
-        SimpleDateFormat formatter= new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        DateFormat formatter= new SimpleDateFormat("MM/dd/yyyy hh:mm:ss aa");
         Date date = new Date(System.currentTimeMillis());
-        //
+
 
         auditWriter.println(formatter.format(date) + " " + transactionType + ": $" + startingMoney  + " $" + endingMoney);
         auditWriter.close();
