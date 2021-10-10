@@ -2,6 +2,7 @@ package com.techelevator;
 
 import java.lang.reflect.Array;
 import java.math.BigDecimal;
+import java.util.Formatter;
 
 public abstract class Item {
 
@@ -33,8 +34,6 @@ public abstract class Item {
     public String getDispenseSound() {
         return dispenseSound;
 
-
-
     }
 
     public int getQuantity() {
@@ -55,10 +54,13 @@ public abstract class Item {
 
 
     //METHODS
-
-
     @Override
     public String toString() {
-        return this.slotId + " | " + this.name + " |        " + this.price + "  Qty: " + this.quantity;
+
+        StringBuilder itemFormatting = new StringBuilder();
+        Formatter itemToPrint = new Formatter(itemFormatting);
+        itemToPrint.format("%s | %-25s  $%s | Qty %s", this.slotId, this.name, this.price, this.quantity);
+
+        return itemFormatting.toString();
     }
 }
