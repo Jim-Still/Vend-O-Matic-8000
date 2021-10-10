@@ -43,7 +43,8 @@ public class VendingMachine {
 //            System.out.println("NOT A VALID OPTION. TRY AGAIN.");
             result = "NOT A VALID OPTION. TRY AGAIN.";
         }
-        if(currentInventory.getInventory().get(selection).getQuantity() == 0){
+
+        if(currentInventory.getInventory().get(selection).getQuantity() <= 0){
 //            System.out.println("SOLD OUT");
             result = "SOLD OUT";
         }
@@ -76,19 +77,18 @@ public class VendingMachine {
             }
 
             //can we pass this to the logger right from here?
-            String productName = currentInventory.getInventory().get(selection).getName();
-            String slotIdAudit = currentInventory.getInventory().get(selection).getSlotId();
-            toAdd = productName + " " + slotIdAudit;
-
-
-
 
             //pass the Item name && Item slotId && starting balance && new balance
         }
-        String event = toAdd + "," + startingBalance + "," + getCurrentBalance();
-        audit.log(event);
-        return result;
 
+        String productName = currentInventory.getInventory().get(selection).getName();
+        String slotIdAudit = currentInventory.getInventory().get(selection).getSlotId();
+        toAdd = productName + " " + slotIdAudit;
+
+        String event = toAdd + "," + startingBalance.toString() + "," + getCurrentBalance().toString();
+        audit.log(event);
+
+        return result;
 
     }
 
@@ -133,29 +133,37 @@ public class VendingMachine {
     }
 
     public String returnChange() {
-        BigDecimal startingBalance = currentBalance;
-        Integer convertedCurrentBalance = startingBalance.intValue();
+        BigDecimal startingBalance = this.currentBalance;
+
+        BigDecimal currentBalance = startingBalance;
+
+        BigDecimal quarter = new BigDecimal("0.25");
+        BigDecimal dime = new BigDecimal("0.10");
+        BigDecimal nickel = new BigDecimal("0.05");
+
+        BigDecimal zero = new BigDecimal("0.00");
+
         int numberOfQuarters = 0;
         int numberOfDimes = 0;
         int numberOfNickels = 0;
+
         String changeReturnStatement = "";
 
-        while (convertedCurrentBalance > 0) {
-            if (convertedCurrentBalance >= 25) {
+        while (currentBalance.compareTo(zero) > 0) {
+            if (currentBalance.compareTo(quarter) >= 0){
                 numberOfQuarters++;
-                BigDecimal quarter = new BigDecimal(0.25);
-                this.currentBalance = this.currentBalance.subtract(quarter);
-            } else if (convertedCurrentBalance >= 10) {
+                currentBalance = currentBalance.subtract(quarter);
+            } else if (currentBalance.compareTo(dime) >= 0) {
                 numberOfDimes++;
-                BigDecimal dime = new BigDecimal(0.10);
-                this.currentBalance = this.currentBalance.subtract(dime);
-            } else if (convertedCurrentBalance >= 5) {
-                BigDecimal nickel = new BigDecimal(0.05);
-                this.currentBalance = this.currentBalance.subtract(nickel);
+                currentBalance = currentBalance.subtract(dime);
+            } else if (currentBalance.compareTo(nickel) >= 0) {
+                numberOfNickels++;
+                currentBalance = currentBalance.subtract(nickel);
             }
         }
 
         changeReturnStatement = "Your change is $" + this.currentBalance + " in \n" + numberOfQuarters + " quarter(s), " + numberOfDimes + " dime(s), " + numberOfNickels + " nickel(s).";
+        this.currentBalance = currentBalance;
         audit.log("GIVE CHANGE" + "," + startingBalance + "," + getCurrentBalance());
         return changeReturnStatement;
     }

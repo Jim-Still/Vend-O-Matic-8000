@@ -74,13 +74,12 @@ public class VendingMachineTests {
 
     //Test won't complete bc application cannot reach method
     //purchase menu options problem
-//    @Test
-//    public void test05DoesCurrentChangeReturnCorrectAmount(){
-//        String amountToDeposit = "$5";
-//        String expectedReturn = "Your change is $5.00 in 20 quarter(s), 0 dime(s), 0 nickel(s).";
-//        tester.feedMoney("$5");
-//
-//        Assert.assertEquals(expectedReturn, tester.returnChange());
-//    }
+    @Test
+    public void test06DoesCurrentChangeReturnCorrectAmount(){
+        String amountToDeposit = "$5";
+        String expectedReturn = "Your change is $5 in \n20 quarter(s), 0 dime(s), 0 nickel(s).";
+        tester.feedMoney("$5");
 
+        Assert.assertEquals(expectedReturn, tester.returnChange());
+    }
 }

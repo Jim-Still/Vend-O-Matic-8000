@@ -78,6 +78,10 @@ public class VendingMachineCLI {
 				System.out.println("Current Money Provided: $" + machine.getCurrentBalance());
 
 				String userSelection = (String) menu.getChoiceFromOptions(selectionChoice, true);
+
+				//hard code loop test
+//				machine.currentInventory.getInventory().get(userSelection).setQuantity(0);
+
 				System.out.println(machine.purchaseProduct(userSelection));
 
 				activeMenu = PURCHASE_MENU_OPTIONS;
