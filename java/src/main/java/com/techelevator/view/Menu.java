@@ -80,7 +80,7 @@ public class Menu {
 						valid = (obj.equals(selectedOption));
 					}
 				}
-				// Only if a match was found should be assign the selection to the choice
+//				 Only if a match was found should be assign the selection to the choice
 				if(valid){choice = selectedOption;}
 			}
 		} catch (NumberFormatException e) {

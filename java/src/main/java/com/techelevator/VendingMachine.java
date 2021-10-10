@@ -37,6 +37,7 @@ public class VendingMachine {
 
         BigDecimal startingBalance = currentBalance;
         String result = "";
+        String toAdd = "";
 
         if(!currentInventory.getInventory().containsKey(selection)) {
 //            System.out.println("NOT A VALID OPTION. TRY AGAIN.");
@@ -77,15 +78,20 @@ public class VendingMachine {
             //can we pass this to the logger right from here?
             String productName = currentInventory.getInventory().get(selection).getName();
             String slotIdAudit = currentInventory.getInventory().get(selection).getSlotId();
-            String toAdd = productName + " " + slotIdAudit;
+            toAdd = productName + " " + slotIdAudit;
 
-            audit.log(toAdd + "," + startingBalance + "," + getCurrentBalance());
+
 
 
             //pass the Item name && Item slotId && starting balance && new balance
         }
+        String event = toAdd + "," + startingBalance + "," + getCurrentBalance();
+        audit.log(event);
         return result;
+
+
     }
+
 
     public void displayMenu() {
         for (Item item : currentInventory.getInventory().values()) {

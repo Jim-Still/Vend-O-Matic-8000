@@ -66,7 +66,7 @@ public class VendingMachineTests {
 
     @Test
     public void test05ItemToStringTestPrintsItem(){
-        String expectedReturn = "B3 | Wonka Bar | 1.50 | 5";
+        String expectedReturn = "B3 | Wonka Bar                  $1.50 | Qty 5";
         String itemToReturn = tester.currentInventory.getInventory().get("B3").toString();
 
         Assert.assertEquals(expectedReturn, itemToReturn);
