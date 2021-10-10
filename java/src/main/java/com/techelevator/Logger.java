@@ -19,6 +19,11 @@ public class Logger {
     private PrintWriter auditWriter;
     private LocalDate auditDate = LocalDate.from(LocalDateTime.now());
 
+/*  LOGGER ISSUE:
+    Logger will track first event to occur during application run time
+    but fails to log any subsequent event after that in the same
+    application loop*/
+
     public Logger() {
 
         try {
@@ -39,7 +44,6 @@ public class Logger {
 
         DateFormat formatter= new SimpleDateFormat("MM/dd/yyyy hh:mm:ss aa");
         Date date = new Date(System.currentTimeMillis());
-
 
         auditWriter.println(formatter.format(date) + " " + transactionType + ": $" + startingMoney  + " $" + endingMoney);
         auditWriter.close();

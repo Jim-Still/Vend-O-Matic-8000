@@ -4,8 +4,6 @@ import java.math.BigDecimal;
 
 public class Gum extends Item {
 
-
-    //Constructor
     public Gum(String slotId, String name, BigDecimal price){
         super(slotId, name, price);
         setDispenseSound("Chew Chew, Yum!");

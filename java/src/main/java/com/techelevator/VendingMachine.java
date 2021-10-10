@@ -1,15 +1,9 @@
 package com.techelevator;
 
-import com.techelevator.*;
-import com.techelevator.view.Inventory;
 
-import java.io.FileNotFoundException;
+import com.techelevator.view.Inventory;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
-import java.io.File;
+
 
 public class VendingMachine {
 
@@ -24,14 +18,20 @@ public class VendingMachine {
         return currentBalance;
     }
 
-
-    //constructors
+    //CONSTRUCTOR
     public VendingMachine() {
         this.currentBalance = new BigDecimal("0");
     }
 
-    //methods
+    public void displayMenu() {
+        for (Item item : currentInventory.getInventory().values()) {
+            System.out.println(item);
+        }
+    }
 
+    public String exitDialogue(){
+        return "Umbrella Corp. thanks you for using Vendo-Matic 800 for your snacking needs.\nCome back again soon!";
+    }
 
     public String purchaseProduct(String selection){
 
@@ -40,18 +40,15 @@ public class VendingMachine {
         String toAdd = "";
 
         if(!currentInventory.getInventory().containsKey(selection)) {
-//            System.out.println("NOT A VALID OPTION. TRY AGAIN.");
             result = "NOT A VALID OPTION. TRY AGAIN.";
         }
 
         if(currentInventory.getInventory().get(selection).getQuantity() <= 0){
-//            System.out.println("SOLD OUT");
             result = "SOLD OUT";
         }
 
         if(currentInventory.getInventory().containsKey(selection) && currentInventory.getInventory().get(selection).getQuantity() > 0)  {
 
-            //This should adjust the balance
             BigDecimal itemPriceCheck = currentInventory.getInventory().get(selection).getPrice();
             BigDecimal moneyAvailable = getCurrentBalance();
 
@@ -65,22 +62,19 @@ public class VendingMachine {
                 currentInventory.getInventory().get(selection).setQuantity(newQuantity);
 
                 //dispenses item
-
-//                System.out.println(currentInventory.getInventory().get(selection).getName() + " $" + currentInventory.getInventory().get(selection).getPrice() + " | Remaining Balance: $" + getCurrentBalance() );
-//                System.out.println(currentInventory.getInventory().get(selection).getDispenseSound());
                 result = currentInventory.getInventory().get(selection).getName() + " $" + currentInventory.getInventory().get(selection).getPrice() +
                         " | Remaining Balance: $" + getCurrentBalance() + "\n" + currentInventory.getInventory().get(selection).getDispenseSound();
 
             } else {
-//                System.out.println("You need to feed the machine money!!!");
-                result = "You need to feed the machine money!!!";
+                result = "You know... these things cost money.....";
             }
 
+            //LOGGER ISSUE POSSIBLE SOLUTION:
             //can we pass this to the logger right from here?
 
-            //pass the Item name && Item slotId && starting balance && new balance
         }
 
+        //LOGGER ISSUE - PLAYING AROUND WITH PLACEMENT.
         String productName = currentInventory.getInventory().get(selection).getName();
         String slotIdAudit = currentInventory.getInventory().get(selection).getSlotId();
         toAdd = productName + " " + slotIdAudit;
@@ -89,20 +83,6 @@ public class VendingMachine {
         audit.log(event);
 
         return result;
-
-    }
-
-
-    public void displayMenu() {
-        for (Item item : currentInventory.getInventory().values()) {
-            System.out.println(item);
-        }
-    }
-    public String exitDialogue(){
-        return "Umbrella Corp. thanks you for using Vendo-Matic 800 for your snacking needs.\nCome back again soon!";
-    }
-
-    public void audit(String event){
 
     }
 
@@ -127,14 +107,15 @@ public class VendingMachine {
             this.currentBalance = this.currentBalance.add(tenDollar);
         }
 
+        // LOGGER ISSUE: TRYING A DIFFERENT ROUTE TO GET AROUND ISSUE
         String event = "FEED MONEY "+ "," + startingBalance + "," + getCurrentBalance() + ",";
         audit.log(event);
 
     }
 
     public String returnChange() {
-        BigDecimal startingBalance = this.currentBalance;
 
+        BigDecimal startingBalance = this.currentBalance;
         BigDecimal currentBalance = startingBalance;
 
         BigDecimal quarter = new BigDecimal("0.25");
@@ -164,7 +145,10 @@ public class VendingMachine {
 
         changeReturnStatement = "Your change is $" + this.currentBalance + " in \n" + numberOfQuarters + " quarter(s), " + numberOfDimes + " dime(s), " + numberOfNickels + " nickel(s).";
         this.currentBalance = currentBalance;
+
+        //LOGGER ISSUE: MAY NEED TO MOVE?
         audit.log("GIVE CHANGE" + "," + startingBalance + "," + getCurrentBalance());
+
         return changeReturnStatement;
     }
 

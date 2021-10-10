@@ -4,8 +4,6 @@ import java.math.BigDecimal;
 
 public class Beverage extends Item {
 
-
-    //Constructor
     public Beverage(String slotId, String name, BigDecimal price){
 
         super(slotId, name, price);

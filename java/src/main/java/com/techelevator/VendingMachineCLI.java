@@ -16,6 +16,7 @@ public class VendingMachineCLI {
 		cli.run();
 	}
 
+	//CREATE VENDING MACHINE:
 	VendingMachine machine = new VendingMachine();
 
 	//MAIN OPTIONS
@@ -41,51 +42,47 @@ public class VendingMachineCLI {
 	private static final String[] DEPOSIT_MENU_OPTIONS = {DEPOSIT_MENU_OPTION_ONE, DEPOSIT_MENU_OPTION_TWO, DEPOSIT_MENU_OPTION_FIVE, DEPOSIT_MENU_OPTION_TEN};
 	String[] selectionChoice;
 
+	//CALLING THE MENU
 	private Menu menu;
-
 	public VendingMachineCLI(Menu menu) {
 		this.menu = menu;
 	}
 
+	//BEGIN APPLICATION
 	public void run() {
 
 		machine.currentInventory.stock();
-		selectionChoice = machine.currentInventory.getInventory().keySet().toArray(new String[machine.currentInventory.getInventory().size()]);
 
+		//SET PRODUCT SELECTION MENU
+		selectionChoice = machine.currentInventory.getInventory().keySet().toArray(new String[machine.currentInventory.getInventory().size()]);
 
 		String[] activeMenu = MAIN_MENU_OPTIONS;
 
-
 		while (true) {
-			//start with main menu (see line 48)
 			String choice = (String) menu.getChoiceFromOptions(activeMenu);
 
-			//in main menu - user selects display items:
 			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
 
 				machine.displayMenu();
 				activeMenu = MAIN_DISPLAY_MENU_OPTIONS;
 
-				// user selects Purchase, then displays this menu:
 			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
+
 				activeMenu = PURCHASE_MENU_OPTIONS;
+
 			} else if (choice.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)) {
 
+				//DISPLAY FORMATTING
 				System.out.println();
 				machine.displayMenu();
 				System.out.println();
-
 				System.out.println("Current Money Provided: $" + machine.getCurrentBalance());
 
 				String userSelection = (String) menu.getChoiceFromOptions(selectionChoice, true);
 
-				//hard code loop test
-//				machine.currentInventory.getInventory().get(userSelection).setQuantity(0);
-
 				System.out.println(machine.purchaseProduct(userSelection));
 
 				activeMenu = PURCHASE_MENU_OPTIONS;
-
 
 			} else if (choice.equals(MAIN_MENU_OPTION_EXIT)) {
 
@@ -101,10 +98,7 @@ public class VendingMachineCLI {
 
 				activeMenu = MAIN_DISPLAY_MENU_OPTIONS;
 
-
-			}
-			//feed Money
-			else if (choice.equals(PURCHASE_MENU_OPTION_FEED_MONEY)) {
+			} else if (choice.equals(PURCHASE_MENU_OPTION_FEED_MONEY)) {
 				System.out.println();
 				System.out.println("Current Money Provided: $" + machine.getCurrentBalance());
 
@@ -116,6 +110,5 @@ public class VendingMachineCLI {
 
 			}
 		}
-
 	}
 }

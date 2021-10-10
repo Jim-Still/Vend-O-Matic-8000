@@ -52,7 +52,7 @@ public class Inventory {
                 }
             }
         } catch (FileNotFoundException ex) {
-            System.out.println("Insufficient Inventory");
+            System.out.println("Pardon us while we restock our machine...");
         }
     }
 }

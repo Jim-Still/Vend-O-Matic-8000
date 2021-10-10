@@ -27,7 +27,7 @@ public class VendingMachineTests {
     @Test
     public void test01DoesPurchaseProductReturnItemWhenNoBalance(){
         String selection = "C4";
-        String expectedReturn = "You need to feed the machine money!!!";
+        String expectedReturn = "You know... these things cost money.....";
 
         Assert.assertEquals(expectedReturn, tester.purchaseProduct(selection));
     }
@@ -72,14 +72,34 @@ public class VendingMachineTests {
         Assert.assertEquals(expectedReturn, itemToReturn);
     }
 
-    //Test won't complete bc application cannot reach method
-    //purchase menu options problem
     @Test
-    public void test06DoesCurrentChangeReturnCorrectAmount(){
+    public void test06DoesCurrentChangeReturnCorrectAmountWith5Dollars(){
         String amountToDeposit = "$5";
         String expectedReturn = "Your change is $5 in \n20 quarter(s), 0 dime(s), 0 nickel(s).";
         tester.feedMoney("$5");
 
         Assert.assertEquals(expectedReturn, tester.returnChange());
     }
+
+    @Test
+    public void test07DoesCurrentChangeReturnCorrectAmountWithPurchase(){
+        BigDecimal testDeposit = new BigDecimal("2.00");
+        tester.setCurrentBalance(testDeposit);
+
+        tester.purchaseProduct("D1");
+        String expectedReturn = "Your change is $1.15 in \n4 quarter(s), 1 dime(s), 1 nickel(s).";
+
+        Assert.assertEquals(expectedReturn, tester.returnChange());
+    }
+
+    @Test
+    public void test08DoesExitDialoguePrintExitStatement(){
+
+        String expectedReturn = "Umbrella Corp. thanks you for using Vendo-Matic 800 for your snacking needs.\nCome back again soon!";
+        Assert.assertEquals(expectedReturn, tester.exitDialogue());
+    }
+
+
+
+
 }
