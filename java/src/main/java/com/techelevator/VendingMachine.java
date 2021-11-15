@@ -30,7 +30,7 @@ public class VendingMachine {
     }
 
     public String exitDialogue(){
-        return "Umbrella Corp. thanks you for using Vendo-Matic 800 for your snacking needs.\nCome back again soon!";
+        return "Umbrella Corp. thanks you for using Vendo-Matic 8000 for your snacking needs.\nCome back again soon!";
     }
 
     public String purchaseProduct(String selection){
