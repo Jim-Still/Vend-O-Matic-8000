@@ -1,14 +1,24 @@
-## Module 1 Capstone - Vending Machine Software
+# Tech ELevator Module 1 Capstone - Vending Machine Software
 
-You've been asked to develop an application for the newest vending machine distributor,
-Umbrella Corp. They've released a new vending machine, Vendo-Matic 800, that is integrated
-with everyone's bank accounts, allowing customers to purchase products from their computers for their convenience.
+This was my first pair project, & my first big Java project of any kind. We used the driver/navigator principles of pair programming & worked extremely well together to accomplish our goal of buiding a command line Java app simulating a real-life vending machine using Object Oriented Programming. We took on this project before learning about database management, so the inventory function is all hard-coded.
 
-### Application Requirements
+
+## Technology Used
+
+Java (IntelliJ)
+JUnit
+
+
+## Lessons Learned
+
+FLUSH THE LOGGER INSTEAD OF CLOSING IT! In all seriousness, this was a really fun project to work through. All sorts of little loops & logical operations, & it really hammered home the key concepts of OOP - encapsulation, inheritence, & polymorphism.
+
+
+### Abot Vendo-Matic-8000:
 
 1. The vending machine dispenses beverages, candy, chips, and gum.
    - Each vending machine item has a Name and a Price.
-2. A main menu must display when the software runs, presenting the following options:
+2. A main menu displays when the software runs, presenting the following options:
     > ```
     > (1) Display Vending Machine Items
     > (2) Purchase
@@ -39,7 +49,7 @@ process menu:
         has fed into the machine.
     2. Selecting "(2) Select Product" allows the customer to select a product to
     purchase.
-        - Show the list of products available and allow the customer to enter
+        - It shows a list of products available and allows the customer to enter
         a code to select an item.
         - If the product code does not exist, the customer is informed and returned
         to the Purchase menu.
@@ -52,8 +62,8 @@ process menu:
           - All candy items print "Munch Munch, Yum!"
           - All drink items print "Glug Glug, Yum!"
           - All gum items print "Chew Chew, Yum!"
-        - After the product is dispensed, the machine must update its balance
-        accordingly and return the customer to the Purchase menu.
+        - After the product is dispensed, the machine updates its balance
+        accordingly and returns the customer to the Purchase menu.
     3. Selecting "(3) Finish Transaction" allows the customer to complete the
     transaction and receive any remaining change.
         - The customer's money is returned using nickels, dimes, and quarters
@@ -61,69 +71,7 @@ process menu:
         - The machine's current balance must be updated to $0 remaining.
     4. After completing their purchase, the user is returned to the "Main" menu to
     continue using the vending machine.
-8. All purchases must be audited to prevent theft from the vending machine:
-   - Each purchase must generate a line in a file called `Log.txt`.
-   - The audit entry must be in the format:
-        >```
-        > 01/01/2016 12:00:00 PM FEED MONEY: $5.00 $5.00
-         >01/01/2016 12:00:15 PM FEED MONEY: $5.00 $10.00
-         >01/01/2016 12:00:20 PM Crunchie B4 $10.00 $8.50
-         >01/01/2016 12:01:25 PM Cowtales B2 $8.50 $7.50
-         >01/01/2016 12:01:35 PM GIVE CHANGE: $7.50 $0.00
-         >```
-9. Create as many of your classes as possible to be "testable" classes. Limit console
-input and output to as few classes as possible.
-10. Optional - Sales Report
-    - Provide a "Hidden" menu option on the main menu ("4") that writes to a sales
-    report that shows the total sales since the machine was started. The name of the
-    file must include the date and time so each sales report is uniquely named.
-    - An example of the output format is provided below.
-11. Provide unit tests demonstrating that your code works correctly.
-___
-### Vending Machine Data File
-The input file that stocks the vending machine products is a pipe `|` delimited file. Each line is a separate product in the file and follows the below format:
+8. All purchases are audited to prevent theft from the vending machine:
+   - Each purchases generate a line in the file called `Log.txt`.
+9. Unit tests demonstrate that the code works correctly.
 
-| Column Name   | Description |
-----------------|-------------|
-| Slot Location | The slot location in the vending machine where the product is set. |
-| Product Name  | The display name of the vending machine product.                   |
-| Price         | The purchase price for the product.                                |
-| Type          | The product type for this row.                                     |
-
-For example:
-
-```
-A1|Potato Crisps|3.05|Chip
-B1|Moonpie|1.80|Candy
-B2|Cowtales|1.50|Candy
-C1|Cola|1.25|Drink
-```
-
-An input file has been provided with your repository: `vendingmachine.csv`.
-
- ---
-### Sales Report
-The output sales report file is also pipe-delimited for consistency. Each line is a separate product with the number of sales for the applicable product. At the end of the report is a blank line followed by the **TOTAL SALES** dollar amount indicating the gross sales from the vending machine.
-
-**Example Output**
-
->```
->Potato Crisps|10
->Stackers|3
->Grain Waves|0
->Cloud Popcorn|50
->Moonpie|23
->Cowtales|2
->Wonka Bar|1
->Crunchie|3
->Skor|4
->Cola|8
->Dr. Salt|9
->Mountain Melter|12
->Heavy|11
->Diet Cola|6
->U-Chews|4
->Little League Chew|2
->Chiclets|0
->Triplemint|0
->```
