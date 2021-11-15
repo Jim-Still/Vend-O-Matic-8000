@@ -1,4 +1,4 @@
-# Tech ELevator Module 1 Capstone - Vending Machine Software
+# Tech Elevator Module 1 Capstone - Vending Machine Software
 
 This was my first pair project, & my first big Java project of any kind. We used the driver/navigator principles of pair programming & worked extremely well together to accomplish our goal of buiding a command line Java app simulating a real-life vending machine using Object Oriented Programming. We took on this project before learning about database management, so the inventory function is all hard-coded.
 
