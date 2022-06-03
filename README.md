@@ -15,7 +15,7 @@ JUnit
 FLUSH THE LOGGER INSTEAD OF CLOSING IT! In all seriousness, this was a really fun project to work through. All sorts of little loops & logical operations, & it really hammered home the key concepts of OOP - encapsulation, inheritence, & polymorphism.
 
 
-### Abot Vendo-Matic-8000:
+### About Vendo-Matic-8000:
 
 1. The vending machine dispenses beverages, candy, chips, and gum.
    - Each vending machine item has a Name and a Price.
